@@ -1,0 +1,73 @@
+/* General Styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Helvetica, Verdana, sans-serif;
+}
+
+/* Masked Navbar */
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(8px) brightness(1.2);
+    -webkit-backdrop-filter: blur(8px) brightness(1.2);
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 16px;
+    background: #f7a206cc;
+    /* Ensure navbar is visible */
+    z-index: 1000;
+    /* Ensures navbar is above other elements */}
+
+.nav.mask {
+    mask-image: linear-gradient(black 70%, transparent);
+    -webkit-mask-image: linear-gradient(black 70%, transparent);
+}
+
+/* Logo stays on the left */
+.nav .logo {
+    flex-shrink: 0;
+    /* Ensures the logo does not shrink */
+}
+
+/* Push links to the right side */
+.nav .list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+    /* Adds spacing between links */
+    margin-left: auto;
+    /* Pushes the list to the right */
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Ensure each list item remains inline */
+.nav .list li {
+    display: inline-block;
+}
+
+/* Ensure the links inside the list stay inline */
+.nav .list a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 18px;
+    padding: 10px 15px;
+}
+
+/* Add space between search/menu buttons */
+.nav .search,
+.nav .menu {
+    margin-left: 20px;
+    /* Adds spacing between buttons */
+}
