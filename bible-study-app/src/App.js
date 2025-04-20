@@ -14,13 +14,14 @@ import CategoryPage from "./components/page/CategoryPage";
 import PostDetail from "./components/page/PostDetail";
 import Media from "./components/page/PodcastPage";
 
-// Admin Pages (Separate)
 import Sidebar from "./AdminDashboard/Sidebar";
 import Dashboard from "./AdminDashboard/Dashboard";
 import ManageBlogs from "./AdminDashboard/ManageBlogs";
 import CreateBlog from "./AdminDashboard/CreateBlog";
 import Login from "./pages/admin/Login";
-import "./styles/dashboard.css"; 
+
+import PrivateRoute from "./pages/admin/PrivateRoute"; // <-- Import added
+import "./styles/dashboard.css";
 
 function App() {
   return (
@@ -52,27 +53,27 @@ function App() {
                 <Route path="/category" element={<CategoryPage />} />
                 <Route path="/post/:id" element={<PostDetail />} />
                 <Route path="/Media" element={<Media />} />
-                
-
               </Routes>
             </div>
           }
         />
 
-        {/* Admin Panel (Completely Separate) */}
+        {/* Protected Admin Panel */}
         <Route
           path="/admin/*"
           element={
-            <div className="admin-panel">
-              <Sidebar />
-              <div className="content">
-                <Routes>
-                  <Route path="/" element={<Dashboard />} />
-                  <Route path="/manage" element={<ManageBlogs />} />
-                  <Route path="/create" element={<CreateBlog />} />
-                </Routes>
+            <PrivateRoute>
+              <div className="admin-panel">
+                <Sidebar />
+                <div className="content">
+                  <Routes>
+                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/manage" element={<ManageBlogs />} />
+                    <Route path="/create" element={<CreateBlog />} />
+                  </Routes>
+                </div>
               </div>
-            </div>
+            </PrivateRoute>
           }
         />
 

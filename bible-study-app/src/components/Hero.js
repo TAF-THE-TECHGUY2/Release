@@ -7,9 +7,9 @@ const Hero = () => {
       <img src="/assets/hero-image.png" alt="Worship" className="hero-image" />
       <div className="hero-text">
         <h2>Step #1: Know who you are in Christ</h2>
-        <p>
-          Release Bible study is a community for individuals who seek to cultivate their identity in Christ.
-        </p>
+       <p className="hero-description">
+  Release Bible study is a community for individuals who seek to cultivate their identity in Christ.
+</p>
         <button>Get Connected</button>
       </div>
     </div>

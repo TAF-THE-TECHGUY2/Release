@@ -42,3 +42,33 @@
 .nav-link:hover {
     color: #f7a206;
 }
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .navbar-links {
+        flex-direction: column;
+        width: 100%;
+        display: none;
+        background-color: #ff914d;
+        padding: 20px;
+        margin-top: 10px;
+        border-radius: 8px;
+    }
+
+    .navbar-links.open {
+        display: flex;
+    }
+
+    .navbar-links li {
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .nav-right {
+        margin-left: auto;
+        margin-top: 10px;
+    }
+}
