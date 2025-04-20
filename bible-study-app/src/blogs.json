@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "title": "Do You Trust in God?",
+        "category": "Faith",
+        "author": "Michelle-Irene",
+        "description": "In times when our trust in God is wavering, one helpful thing to do is remember the ways He has been faithful...",
+        "date_created": "2025-03-10",
+        "image": "/assets/Group.png"
+    },
+    {
+        "id": 2,
+        "title": "Free At Last ... We are Truly Set Free",
+        "category": "Encouragement",
+        "author": "John Doe",
+        "description": "How do we forget or even doubt the freedom we...",
+        "date_created": "2025-03-03",
+        "image": "/assets/Group.png"
+    }
+]

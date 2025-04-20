@@ -1,13 +1,530 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap");
+/* Reset & Global Styles */
 body {
+  font-family: Arial, sans-serif;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  background-color: #fff8e1;
+  color: #333;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Navbar */
+.navbar {
+  background: linear-gradient(90deg, #ff3131, #ff914d);
+  padding: 15px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Playfair Display", serif;
+  /* Use a biblical-style font */
+  height: 80px;
+}
+
+/* Logo */
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo {
+  height: 250px;
+  /* Increase size */
+  width: auto;
+  max-height: 500px;
+  /* Prevents excessive growth */
+  object-fit: contain;
+}
+
+/* Navigation Links */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.nav-links li {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.nav-links li:hover {
+  color: #7a5419;
+}
+
+/* Right Section (Icons & Search) */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Social Media Icons */
+.social-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.social-icons a {
+  color: inherit;
+  /* Prevent blue default link */
+  text-decoration: none;
+  /* Remove underline */
+  outline: none;
+  /* Remove blue outline on click */
+}
+
+.social-icons a:visited {
+  color: inherit;
+  /* Prevent purple on visited links */
+}
+
+.social-icons a:hover,
+.social-icons a:focus {
+  color: #f7a206;
+  /* Optional highlight color */
+}
+
+.icon {
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.icon:hover {
+  color: #555;
+  /* Smooth hover transition */
+}
+
+/* "Give" Button */
+.give-button {
+  background-color: #668e6c;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 20px;
+  transition: background 0.3s ease;
+}
+
+.give-button:hover {
+  background-color: #567a5d;
+}
+
+/* Search Icon */
+.search-icon {
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.search-icon:hover {
+  color: #555;
+}
+/* Hero Section */
+.hero-container {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(90deg, #ff3131, #ff914d);
+}
+
+.hero-image {
+  width: 60%;
+  max-height: 500px;
+  object-fit: cover;
+  
+}
+
+.hero-text {
+  position: absolute;
+  text-align: center;
+  color: white;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hero-text h2 {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.hero-text p {
+  font-size: 18px;
+  max-width: 600px;
+  margin: 10px auto;
+}
+
+.hero-text button {
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 10px;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.hero-text button:hover {
+  background-color: gray;
+}
+
+/* Feature Section */
+.feature-section {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: #ffffff;
+}
+
+.feature-heading {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+/* Feature Grid Layout */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* 4 equal columns */
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Feature Card */
+.feature-card {
+  background: white;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Number + Title */
+.feature-card h3 {
+  font-size: 20px;
+  margin: 15px 0;
+  font-weight: bold;
+}
+
+/* Card Description */
+.feature-card p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* Card Images */
+.feature-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Buttons */
+.feature-card button {
+  background-color: white;
+  color: black;
+  padding: 8px 16px;
+  border: 1px solid black;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+  border-radius: 5px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.feature-card button:hover {
+  background-color: black;
+  color: white;
+}
+/* Identity Section */
+.identity-section {
+  background: linear-gradient(90deg, #ff3131, #ff914d);
+  color: white;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.identity-section h2 {
+  font-size: 28px;
+}
+
+.identity-section p {
+  font-size: 16px;
+  max-width: 600px;
+  margin: 15px auto;
+}
+
+.identity-section button {
+  background-color: white;
+  color: #e07a5f;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.identity-section button:hover {
+  background-color: #ffbfb3;
+}
+
+/* Footer */
+.footer {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 14px;
+}
+
+/* Video Section */
+.video-section {
+  background-color: #f4efe6;
+  /* Light beige background */
+  padding: 60px 20px;
+  text-align: center;
+}
+
+/* Section Heading */
+.video-heading {
+  font-size: 24px;
+  font-weight: bold;
+  max-width: 800px;
+  margin: 0 auto 20px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.video-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video-container iframe {
+  width: 800px;
+  height: 450px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+/* Devotionals Section */
+.devotionals-section {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #f8f5f0;
+  /* Light beige */
+}
+
+.devotionals-heading {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  color: #333;
+}
+
+/* Devotionals Grid */
+.devotionals-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Individual Devotional Card */
+.devotional-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.devotional-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Devotional Image */
+.devotional-image {
+  width: 180px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Devotional Text */
+.devotional-text {
+  max-width: 500px;
+  text-align: left;
+}
+
+.devotional-text h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #222;
+}
+
+.devotional-text p {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* Read More Button */
+.read-more {
+  background: linear-gradient(90deg, #ff3131, #ff914d);
+  /* Warm Orange */
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out;
+}
+
+.read-more:hover {
+  background-color: #d0654f;
+}
+
+/* Get Connected Section */
+.get-connected-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px;
+  background-color: #c24d2c;
+  /* Warm Orange-Red */
+  color: white;
+}
+
+/* Left Side Text */
+.get-connected-text {
+  flex: 1;
+  max-width: 40%;
+}
+
+.get-connected-text h2 {
+  font-size: 26px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+/* Right Side Form */
+.get-connected-form {
+  flex: 1;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.get-connected-form input,
+.get-connected-form select {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.get-connected-form select {
+  cursor: pointer;
+}
+
+/* reCAPTCHA Placeholder */
+.captcha-placeholder {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+/* Submit Button */
+.connect-btn {
+  background-color: white;
+  color: #c24d2c;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.connect-btn:hover {
+  background-color: #e6a189;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .get-connected-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .get-connected-text {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .get-connected-form {
+    max-width: 100%;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+} 
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .devotionals-grid {
+    grid-template-columns: 1fr;
+    /* Single column on smaller screens */
+  }
+
+  .devotional-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .devotional-text {
+    text-align: center;
+  }
 }

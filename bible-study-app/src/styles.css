@@ -1,0 +1,269 @@
+/* General Page Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Navbar */
+.blog-nav {
+    display: flex;
+    justify-content: center;
+    background: white;
+    padding: 15px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.blog-nav a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px 15px;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.blog-nav a:hover,
+.blog-nav a.active {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+}
+
+/* Blog Grid */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 30px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Blog Card */
+.blog-card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.blog-card:hover {
+    transform: scale(1.05);
+}
+
+.blog-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.blog-card h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.blog-card .date {
+    font-size: 14px;
+    color: gray;
+}
+
+.blog-card p {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Blog Detail Page */
+.post-detail {
+    max-width: 800px;
+    margin: auto;
+    padding: 30px;
+    background: white;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.post-detail img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.post-detail h2 {
+    font-size: 26px;
+    margin-top: 20px;
+}
+
+.post-detail .post-date {
+    font-size: 14px;
+    color: gray;
+}
+
+.post-detail p {
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* Admin Dashboard */
+.admin-container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.admin-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.create-button {
+    display: block;
+    width: 200px;
+    margin: 10px auto;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.create-button:hover {
+    background: #0056b3;
+}
+
+/* Table Styling */
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background: #007bff;
+    color: white;
+}
+
+td img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.view-btn,
+.delete-btn {
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.view-btn {
+    background: #28a745;
+    color: white;
+}
+
+.view-btn:hover {
+    background: #218838;
+}
+
+.delete-btn {
+    background: #dc3545;
+    color: white;
+}
+
+.delete-btn:hover {
+    background: #c82333;
+}
+
+/* Create Blog */
+.create-blog-container {
+    max-width: 700px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.create-blog-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.create-blog-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.create-blog-form input,
+.create-blog-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.create-blog-form textarea {
+    height: 150px;
+    resize: none;
+}
+
+.create-blog-form button {
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.create-blog-form button:hover {
+    background: #0056b3;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .create-blog-container {
+        width: 100%;
+        padding: 10px;
+    }
+}

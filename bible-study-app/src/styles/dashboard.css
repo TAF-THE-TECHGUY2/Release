@@ -1,0 +1,69 @@
+/* Fullscreen Admin Panel */
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: whitesmoke; /* Soft Background */
+    color: #333; /* Dark Gray for Readability */
+    text-align: center;
+    padding: 20px;
+}
+
+/* Dashboard Heading */
+.dashboard h1 {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+/* Cards Container */
+.dashboard-cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Dashboard Cards */
+.card {
+    background: rgba(255, 255, 255, 0.8); /* Light Transparent White */
+    border-radius: 12px;
+    padding: 20px;
+    width: 220px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft Shadows */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+/* Card Hover Effect */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Icons */
+.card-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: #666; /* Subtle Gray */
+}
+
+/* Custom Colors for Icons */
+.published {
+    color: #28a745; /* Green for Published */
+}
+
+.drafts {
+    color: #ffc107; /* Yellow for Drafts */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+}

@@ -1,0 +1,521 @@
+/* General Page Styles */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* Fix Navbar Overlapping */
+.content {
+    padding-top: 80px;
+    /* Prevents hero section from overlapping navbar */
+}
+
+/* About Page */
+.about-us-page {
+    width: 100vw;
+    text-align: left;
+    background-color: #fff8e1;
+    color: #333;
+    position: relative;
+}
+
+/* Hero Section with Two Images */
+.about-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(90deg, #ff3131, #ff914d);
+    padding: 0;
+    height: 100vh;
+    /* Full height */
+    width: 100vw;
+    /* Full width */
+    gap: 30px;
+    overflow: hidden;
+    /* Prevents scrolling issues */
+    position: relative;
+}
+
+/* Left Image */
+.hero-image-left {
+    flex: 1;
+    max-width: 50%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+    /* Full-screen height */
+    position: absolute;
+    left: 0%;
+    /* Moves the image further left */
+    top: 0;
+}
+
+.hero-image {
+    width: 110%;
+    max-height: 100vh;
+    object-fit: contain;
+    border-radius: 0;
+}
+
+/* Right Image - Increased Size */
+.hero-image-right {
+    flex: 1;
+    max-width: 80%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100vh;
+    /* Increased height */
+    position: absolute;
+    right: 0%;
+    top: 0;
+}
+
+.hero-image-right img {
+    width: 130%;
+    /* Makes the image wider */
+    max-width: none;
+    /* Prevents size limitations */
+    max-height: 150vh;
+    /* Increases height */
+    object-fit: cover;
+    /* Ensures full image is displayed */
+    border-radius: 0;
+}
+
+.hero-text {
+    flex: 1;
+    max-width: 50%;
+    padding: 30px;
+    text-align: center;
+    z-index: 2;
+    position: absolute;
+    top: 35%;
+    /* Moves the text higher */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "EB Garamond", serif;
+    color: #4a2e18;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Title Styling */
+.hero-text h1 {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    background: linear-gradient(to right, #f4d03f, #d68910);
+    /* Golden gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* Gold-text effect */
+}
+
+/* Paragraph Styling */
+.hero-text p {
+    font-size: 20px;
+    line-height: 1.8;
+    font-style: italic;
+    /* Adds a poetic and divine feel */
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .hero-image-left {
+        left: -10%;
+    }
+
+    .hero-image-right {
+        right: -15%;
+        max-width: 70%;
+        height: 100vh;
+    }
+
+    .hero-text h1 {
+        font-size: 36px;
+    }
+
+    .hero-text p {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-hero {
+        flex-direction: column;
+        text-align: center;
+        height: auto;
+    }
+
+    .hero-image-left,
+    .hero-image-right {
+        position: relative;
+        left: 0;
+        right: 0;
+        max-width: 100%;
+        justify-content: center;
+    }
+
+    .hero-image-left img,
+    .hero-image-right img {
+        width: 100%;
+        max-height: 400px;
+    }
+
+    .hero-text {
+        max-width: 100%;
+        text-align: center;
+        padding: 30px;
+    }
+
+    .hero-text h1 {
+        font-size: 32px;
+    }
+
+    .hero-text p {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+}
+/* Why We Exist Section - Full Width */
+.why-exist {
+    width: 100vw;
+    padding: 80px 8vw;
+    background-color: #fff;
+    display: flex;
+    align-items: flex-start;
+    /* Ensures heading stays at the top */
+    justify-content: space-between;
+    text-align: left;
+    gap: 50px;
+    flex-wrap: wrap;
+    /* Prevents overflow */
+    box-sizing: border-box;
+    /* Ensures padding is included in width calculations */
+    overflow: hidden;
+    /* Prevents any unwanted scrolling */
+}
+
+/* Left Column - Heading */
+.why-left {
+    flex: 1;
+    align-self: flex-start;
+    /* Moves the heading to the top */
+    max-width: 40%;
+    /* Prevents text from stretching too wide */
+}
+
+/* Heading Styling */
+.why-left h2 {
+    font-size: 32px;
+    font-weight: bold;
+    font-family: "EB Garamond", serif;
+    color: #4a2e18;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    line-height: 1.3;
+    border-left: 5px solid #f4d03f;
+    padding-left: 15px;
+    margin: 0;
+}
+
+/* Right Column - Text */
+.why-right {
+    flex: 2;
+    max-width: 55%;
+    /* Prevents text from going too wide */
+    box-sizing: border-box;
+    /* Ensures width includes padding */
+    padding-right: 10px;
+    /* Prevents text from touching the edge */
+}
+
+/* Paragraph Styling */
+.why-right p {
+    font-size: 18px;
+    line-height: 1.8;
+    font-style: italic;
+    color: #333;
+    margin-bottom: 15px;
+    word-wrap: break-word;
+    /* Ensures words do not overflow */
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .why-exist {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 60px 5vw;
+    }
+
+    .why-left {
+        align-self: center;
+        text-align: center;
+        max-width: 90%;
+    }
+
+    .why-left h2 {
+        font-size: 28px;
+        border-left: none;
+        padding-left: 0;
+    }
+
+    .why-right {
+        max-width: 90%;
+        padding-right: 0;
+    }
+
+    .why-right p {
+        text-align: center;
+        font-size: 17px;
+    }
+}
+
+/* Goals Section - Full Width */
+.our-goals {
+    width: 100vw;
+    background: #c84b31;
+    /* Deep red background */
+    color: white;
+    text-align: center;
+    padding: 80px 10vw;
+    box-sizing: border-box;
+}
+
+/* Centered Heading */
+.our-goals h2 {
+    font-size: 36px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+/* Centered Paragraph with Max-Width */
+.our-goals p {
+    font-size: 18px;
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+    /* Center paragraph */
+    line-height: 1.7;
+    opacity: 0.9;
+}
+
+/* Goals Container - Flex Layout */
+.goals-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+/* Individual Goal Cards */
+.goal-card {
+    width: 300px;
+    background: #b03a2e;
+    /* Slightly darker red for contrast */
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Card Hover Effect */
+.goal-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Icon Styling */
+.goal-card h3 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+/* Description Styling */
+.goal-card p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .goals-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .goal-card {
+        width: 90%;
+    }
+}
+
+/* Our Story Section */
+.our-story {
+    width: 100vw;
+    background: #fff8e1;
+    /* Light background */
+    text-align: center;
+    padding: 80px 10vw;
+    box-sizing: border-box;
+}
+
+/* Centered Heading */
+.our-story h2 {
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+}
+
+/* Story Content - Image + Text */
+.story-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 450px;
+    /* Matches image width */
+    margin: 0 auto;
+}
+
+/* Story Image */
+.story-content img {
+    max-width: 450px;
+    /* Ensures the image does not get too big */
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.mission-vision {
+    background-color: #fff;
+    padding: 80px 10vw;
+    text-align: center;
+    color: #333;
+    line-height: 1.8;
+}
+
+.mission-vision h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #4a2e18;
+    text-transform: uppercase;
+}
+
+.mission-vision p {
+    font-size: 18px;
+    max-width: 900px;
+    margin: 0 auto 20px auto;
+}
+
+/* Story Paragraph */
+.story-content p {
+    font-size: 18px;
+    line-height: 1.8;
+    width: 100%;
+    /* Matches image width */
+    margin: 0 auto;
+    color: black;
+    opacity: 0.9;
+}
+
+/* Responsive Fixes */
+@media (max-width: 768px) {
+    .story-content {
+        max-width: 100%;
+        padding: 0 20px;
+    }
+
+    .story-content img {
+        max-width: 100%;
+    }
+
+    .story-content p {
+        font-size: 16px;
+        width: 100%;
+        /* Matches image width */
+        padding: 0 10px;
+    }
+}
+
+/* Founder Section */
+.founder-section {
+    width: 100vw;
+    background: #e8e8e8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 10vw;
+    box-sizing: border-box;
+}
+
+/* Founder Content Layout */
+.founder-content {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    max-width: 1000px;
+}
+
+/* Founder Image */
+.founder-image {
+    width: 300px;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Founder Text */
+.founder-text {
+    flex: 1;
+    max-width: 600px;
+}
+
+.founder-text h3 {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.founder-text p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #333;
+}
+
+/* Responsive Fixes */
+@media (max-width: 768px) {
+    .founder-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .founder-image {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .founder-text {
+        max-width: 100%;
+        padding: 0 20px;
+    }
+}

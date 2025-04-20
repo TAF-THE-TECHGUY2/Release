@@ -1,0 +1,27 @@
+.podcast-page {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: auto;
+    font-family: 'Poppins', sans-serif;
+}
+
+.podcast-page h1 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.masonry-grid {
+    display: flex;
+    margin-left: -20px;
+    width: auto;
+}
+
+.masonry-col {
+    padding-left: 20px;
+    background-clip: padding-box;
+}
+
+.masonry-item {
+    margin-bottom: 30px;
+}

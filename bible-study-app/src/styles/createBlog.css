@@ -1,0 +1,111 @@
+/* Apply the same background as other pages */
+body {
+    background: whitesmoke;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Center the Create Blog Container */
+.create-blog {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 40px;
+    background: white;
+    /* Ensure form background is distinct */
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Heading */
+.create-blog h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    text-align: left;
+}
+
+/* Input Fields */
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    outline: none;
+    transition: border 0.3s ease-in-out;
+}
+
+/* On Focus */
+input:focus,
+textarea:focus,
+select:focus {
+    border: 1px solid #007bff;
+}
+
+/* Textarea */
+textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+/* Add Category */
+.add-category {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+/* Add Button */
+.add-category button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.add-category button:hover {
+    background: #0056b3;
+}
+
+/* Submit Button */
+button[type="submit"] {
+    background: #28a745;
+    color: white;
+    padding: 12px;
+    border: none;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+button[type="submit"]:hover {
+    background: #218838;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .create-blog {
+        width: 90%;
+        padding: 30px;
+    }
+}
