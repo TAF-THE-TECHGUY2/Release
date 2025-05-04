@@ -19,11 +19,14 @@ import Dashboard from "./AdminDashboard/Dashboard";
 import ManageBlogs from "./AdminDashboard/ManageBlogs";
 import CreateBlog from "./AdminDashboard/CreateBlog";
 import Login from "./pages/admin/Login";
+import PrivateRoute from "./pages/admin/PrivateRoute";
 
-import PrivateRoute from "./pages/admin/PrivateRoute"; // <-- Import added
+import useIsMobile from "./useIsMobile"; // ✅ correct
 import "./styles/dashboard.css";
 
 function App() {
+  const isMobile = useIsMobile(); // ✅ Detect screen size
+
   return (
     <Router>
       <Routes>
@@ -39,12 +42,11 @@ function App() {
                   element={
                     <>
                       <Hero />
-                      <FeatureCards />
+                      {!isMobile && <FeatureCards />}
                       <IdentitySection />
                       <VideoSection />
                       <RecentDevotionals />
                       <GetConnected />
-                      <Footer />
                     </>
                   }
                 />
@@ -54,6 +56,8 @@ function App() {
                 <Route path="/post/:id" element={<PostDetail />} />
                 <Route path="/Media" element={<Media />} />
               </Routes>
+              {/* ✅ Show footer on all public pages */}
+              <Footer />
             </div>
           }
         />

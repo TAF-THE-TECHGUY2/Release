@@ -1,53 +1,138 @@
-/* Login.css */
+/* Reset and base font */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Only center login page */
+.login-page {
+    background: linear-gradient(to right, #e0eafc, #cfdef3);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Login Card */
 .login-container {
     width: 100%;
-    max-width: 400px;
-    margin: 100px auto;
-    padding: 20px;
+    max-width: 420px;
     background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     text-align: center;
+    transition: all 0.3s ease;
 }
 
 .login-container h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #2c3e50;
 }
 
-.login-container input {
+.login-container p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Inputs */
+.login-container input[type="email"],
+.password-wrapper input {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
+    max-width: 320px;
+    padding: 14px 16px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 15px;
+    background-color: #f9f9f9;
+    transition: 0.3s ease-in-out;
+    box-sizing: border-box;
 }
 
+/* Password wrapper */
+.password-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    margin-bottom: 15px;
+}
+
+/* Toggle password button */
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #007bff;
+    cursor: pointer;
+    user-select: none;
+    background: transparent;
+    padding: 0 5px;
+    line-height: 1;
+}
+
+/* Input focus */
 .login-container input:focus {
     outline: none;
     border-color: #007bff;
+    background-color: #fff;
 }
 
+/* Button */
 .login-container button {
     width: 100%;
-    padding: 10px;
+    max-width: 320px;
+    padding: 14px;
     background: #007bff;
     color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 18px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
-    margin-top: 10px;
-    transition: 0.3s;
+    margin-top: 5px;
+    transition: background 0.3s;
 }
 
 .login-container button:hover {
     background: #0056b3;
 }
 
+/* Error */
 .error-message {
-    color: red;
+    color: #e74c3c;
+    font-size: 14px;
     margin-top: 10px;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 30px 20px;
+        border-radius: 16px;
+    }
+
+    .login-container h2 {
+        font-size: 24px;
+    }
+
+    .login-container button {
+        font-size: 15px;
+    }
+
+    .toggle-password {
+        font-size: 13px;
+    }
 }

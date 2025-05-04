@@ -1,23 +1,21 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaBars, FaTimes, FaHome, FaPlus, FaEdit } from "react-icons/fa"; 
+import { FaBars, FaTimes, FaHome, FaPlus, FaEdit } from "react-icons/fa";
 import "../styles/sidebar.css";
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(true); // Sidebar state
+  const [isOpen, setIsOpen] = useState(true);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
-      {/* Toggle Button */}
-      <button className="toggle-btn" onClick={toggleSidebar}>
+    <div className={`sidebar ${isOpen ? "" : "closed"}`}>
+      <button className="sidebar-toggle-btn" onClick={toggleSidebar}>
         {isOpen ? <FaTimes /> : <FaBars />}
       </button>
 
-      {/* Sidebar Links */}
       <nav>
         <Link to="/admin" className="nav-link">
           <FaHome className="icon" />

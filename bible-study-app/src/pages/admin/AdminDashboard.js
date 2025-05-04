@@ -20,33 +20,50 @@ const AdminDashboard = () => {
 
   return (
     <div className="admin-container">
-      <h1>Admin Dashboard</h1>
-      <Link to="/admin/create-blog" className="create-button">+ Create New Blog</Link>
-      <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Author</th>
-            <th>Date Created</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {blogs.map((blog) => (
-            <tr key={blog.id}>
-              <td>{blog.title}</td>
-              <td>{blog.category}</td>
-              <td>{blog.author}</td>
-              <td>{new Date(blog.date_created).toLocaleDateString()}</td>
-              <td>
-                <Link to={`/post/${blog.id}`} className="view-btn">📖 View</Link>
-                <button onClick={() => deleteBlog(blog.id)} className="delete-btn">❌ Delete</button>
-              </td>
+      <header className="admin-header">
+        <h1>📊 Admin Dashboard</h1>
+        <Link to="/admin/create-blog" className="create-button">
+          + Create New Blog
+        </Link>
+      </header>
+
+      <div className="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Author</th>
+              <th>Date Created</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {blogs.length > 0 ? (
+              blogs.map((blog) => (
+                <tr key={blog.id}>
+                  <td>{blog.title}</td>
+                  <td>{blog.category}</td>
+                  <td>{blog.author}</td>
+                  <td>{new Date(blog.date_created).toLocaleDateString()}</td>
+                  <td className="actions">
+                    <Link to={`/post/${blog.id}`} className="view-btn">
+                      📖 View
+                    </Link>
+                    <button onClick={() => deleteBlog(blog.id)} className="delete-btn">
+                      ❌ Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5" className="no-data">No blogs available</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

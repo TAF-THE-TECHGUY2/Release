@@ -57,16 +57,17 @@ const Navbar = () => {
       </nav>
 
       {/* Fullscreen Overlay Menu */}
-      {menuOpen && (
-        <div className="mobile-overlay">
-          <ul className="overlay-links">
-            <li onClick={() => { closeMenu(); window.location.href = "/"; }}>Home</li>
-            <li onClick={() => { closeMenu(); window.location.href = "/Media"; }}>Media</li>
-            <li onClick={() => { closeMenu(); window.location.href = "/category"; }}>Bible Study</li>
-            <li onClick={() => { closeMenu(); window.location.href = "/about"; }}>About Us</li>
-          </ul>
-        </div>
-      )}
+     {menuOpen && (
+  <div className="mobile-overlay">
+    <button className="close-overlay-btn" onClick={closeMenu}>✕</button>
+    <ul className="overlay-links">
+      <li onClick={() => { closeMenu(); window.location.href = "/"; }}>Home</li>
+      <li onClick={() => { closeMenu(); window.location.href = "/Media"; }}>Media</li>
+      <li onClick={() => { closeMenu(); window.location.href = "/category"; }}>Bible Study</li>
+      <li onClick={() => { closeMenu(); window.location.href = "/about"; }}>About Us</li>
+    </ul>
+  </div>
+)}
     </>
   );
 };

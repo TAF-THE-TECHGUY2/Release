@@ -5,6 +5,12 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.loading-spinner {
+    text-align: center;
+    padding: 50px;
+    font-size: 1.5rem;
+}
+
 .podcast-page h1 {
     text-align: center;
     font-size: 32px;

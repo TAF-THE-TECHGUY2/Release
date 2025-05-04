@@ -1,27 +1,41 @@
 const express = require("express");
 const cors = require("cors");
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
 const PORT = 5000;
 
 // Middleware
-app.use(express.json({ limit: "50mb" })); // Increase JSON payload limit
+app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(cors());
 
-// Dummy Database (Replace with actual DB in production)
+// File path for storing blogs
+const BLOGS_FILE = path.join(__dirname, "blogs.json");
+
+// Load blogs from file at startup
 let blogs = [];
+if (fs.existsSync(BLOGS_FILE)) {
+  const data = fs.readFileSync(BLOGS_FILE, "utf8");
+  blogs = JSON.parse(data);
+}
+
+// Utility function to save blogs to file
+function saveBlogsToFile() {
+  fs.writeFileSync(BLOGS_FILE, JSON.stringify(blogs, null, 2));
+}
 
 // 📌 Route to Create a Blog
 app.post("/blogs", (req, res) => {
   const { title, category, author, image, description } = req.body;
-  
+
   if (!title || !category || !author || !image || !description) {
     return res.status(400).json({ error: "All fields are required!" });
   }
 
   const newBlog = {
-    id: blogs.length + 1,
+    id: Date.now(),
     title,
     category,
     author,
@@ -31,6 +45,7 @@ app.post("/blogs", (req, res) => {
   };
 
   blogs.push(newBlog);
+  saveBlogsToFile(); // Persist changes
   res.status(201).json({ message: "Blog created successfully!", blog: newBlog });
 });
 
@@ -41,7 +56,7 @@ app.get("/blogs", (req, res) => {
 
 // 📌 Route to Fetch a Single Blog by ID
 app.get("/blogs/:id", (req, res) => {
-  const blogId = parseInt(req.params.id); // Convert ID from string to number
+  const blogId = parseInt(req.params.id);
   const blog = blogs.find((b) => b.id === blogId);
 
   if (!blog) {
@@ -61,6 +76,7 @@ app.delete("/blogs/:id", (req, res) => {
   }
 
   blogs.splice(blogIndex, 1);
+  saveBlogsToFile(); // Persist changes
   res.json({ message: "Blog deleted successfully!" });
 });
 
@@ -77,13 +93,14 @@ app.put("/blogs/:id", (req, res) => {
   blog.title = title || blog.title;
   blog.category = category || blog.category;
   blog.author = author || blog.author;
-  blog.image = image || blog. image;
+  blog.image = image || blog.image;
   blog.description = description || blog.description;
 
+  saveBlogsToFile(); // Persist changes
   res.json({ message: "Blog updated successfully!", blog });
 });
 
 // Start Server
 app.listen(PORT, () => {
-  console.log(`✅ Server is running on http://localhost:${PORT}`);
+  console.log(`✅ Server running at http://localhost:${PORT}`);
 });

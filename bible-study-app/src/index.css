@@ -203,6 +203,26 @@ body {
   transition: background 0.3s ease;
 }
 
+.close-overlay-btn {
+  position: fixed;
+  /* ensures it's pinned to the screen */
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 3rem;
+  /* increased size */
+  color: white;
+  cursor: pointer;
+  z-index: 1001;
+  /* ensure it's above the overlay */
+}
+
+.close-overlay-btn:hover {
+  color: #ff6666;
+  /* optional: red on hover */
+}
+
 .give-button:hover {
   background-color: #567a5d;
 }

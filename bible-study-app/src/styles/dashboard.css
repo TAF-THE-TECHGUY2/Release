@@ -1,69 +1,60 @@
-/* Fullscreen Admin Panel */
 .dashboard {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     min-height: 100vh;
-    background: whitesmoke; /* Soft Background */
-    color: #333; /* Dark Gray for Readability */
-    text-align: center;
-    padding: 20px;
+    background: #ffffff;
+    color: #333;
+    padding: 40px 20px;
 }
 
-/* Dashboard Heading */
 .dashboard h1 {
     font-size: 2.2rem;
-    font-weight: bold;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
 
-/* Cards Container */
 .dashboard-cards {
     display: flex;
-    gap: 20px;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 20px;
 }
 
-/* Dashboard Cards */
 .card {
-    background: rgba(255, 255, 255, 0.8); /* Light Transparent White */
+    background: #f9f9f9;
     border-radius: 12px;
     padding: 20px;
     width: 220px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft Shadows */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    backdrop-filter: blur(8px);
+    transition: transform 0.3s ease;
 }
 
-/* Card Hover Effect */
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
 }
 
-/* Card Icons */
 .card-icon {
     font-size: 40px;
     margin-bottom: 10px;
-    color: #666; /* Subtle Gray */
+    color: #555;
 }
 
-/* Custom Colors for Icons */
 .published {
-    color: #28a745; /* Green for Published */
+    color: #28a745;
 }
 
 .drafts {
-    color: #ffc107; /* Yellow for Drafts */
+    color: #ffc107;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .dashboard-cards {
         flex-direction: column;
         align-items: center;
+    }
+
+    .card {
+        width: 90%;
     }
 }

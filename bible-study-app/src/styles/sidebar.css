@@ -1,35 +1,59 @@
-/* Sidebar Container */
+/* Sidebar container */
 .sidebar {
     position: fixed;
-    left: 0;
     top: 0;
+    left: 0;
     height: 100vh;
     background: #212529;
-    /* Dark theme */
     color: white;
     width: 250px;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
     transition: width 0.3s ease-in-out;
+    overflow-x: hidden;
+    z-index: 999;
 }
 
-/* Collapsed Sidebar */
 .sidebar.closed {
     width: 80px;
 }
 
 /* Toggle Button */
-.toggle-btn {
+.sidebar-toggle-btn {
     background: transparent;
+    border: 2px solid white;
     color: white;
-    border: none;
-    font-size: 24px;
+    font-size: 18px;
+    padding: 6px 10px;
+    border-radius: 4px;
     cursor: pointer;
     margin-bottom: 20px;
+    transition: all 0.3s ease;
 }
 
-/* Sidebar Links */
+.sidebar-toggle-btn:hover {
+    background: white;
+    color: #212529;
+}
+
+/* Sidebar Header */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.profile-icon {
+    font-size: 24px;
+}
+
+/* Sidebar Title */
+.sidebar-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Navigation Links */
 .nav-link {
     display: flex;
     align-items: center;
@@ -38,24 +62,24 @@
     text-decoration: none;
     padding: 10px;
     border-radius: 5px;
-    transition: background 0.3s;
+    transition: background 0.3s ease;
 }
 
 .nav-link:hover {
     background: #343a40;
 }
 
-/* Sidebar Icons */
 .icon {
-    font-size: 20px;
+    font-size: 18px;
 }
 
-/* Hide Text When Collapsed */
-.sidebar.closed .nav-link span {
+/* Collapse text on closed sidebar */
+.sidebar.closed .nav-link span,
+.sidebar.closed .sidebar-title {
     display: none;
 }
 
-/* Adjust Content Area */
+/* Main content shift */
 .content {
     margin-left: 250px;
     transition: margin-left 0.3s ease-in-out;
@@ -63,4 +87,34 @@
 
 .sidebar.closed~.content {
     margin-left: 80px;
+}
+
+/* Mobile layout */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 10px;
+    }
+
+    .sidebar.closed {
+        height: auto;
+    }
+
+    .nav-link {
+        flex: 1 1 100%;
+        justify-content: center;
+    }
+
+    .sidebar-toggle-btn {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+
+    .content {
+        margin-left: 0;
+    }
 }
