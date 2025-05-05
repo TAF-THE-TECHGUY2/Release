@@ -104,3 +104,8 @@ app.put("/blogs/:id", (req, res) => {
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
 });
+
+app.get("/", (req, res) => {
+  res.send("Bible Study Backend is running ✅");
+});
+
