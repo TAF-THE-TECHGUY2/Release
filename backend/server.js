@@ -28,9 +28,9 @@ function saveBlogsToFile() {
 
 // 📌 Route to Create a Blog
 app.post("/blogs", (req, res) => {
-  const { title, category, author, image, description } = req.body;
+  const { title, category, author, image, description, backgroundColor } = req.body;
 
-  if (!title || !category || !author || !image || !description) {
+  if (!title || !category || !author || !image || !description || !backgroundColor) {
     return res.status(400).json({ error: "All fields are required!" });
   }
 
@@ -41,11 +41,12 @@ app.post("/blogs", (req, res) => {
     author,
     image,
     description,
+    backgroundColor,
     createdAt: new Date().toISOString(),
   };
 
   blogs.push(newBlog);
-  saveBlogsToFile(); // Persist changes
+  saveBlogsToFile();
   res.status(201).json({ message: "Blog created successfully!", blog: newBlog });
 });
 
@@ -76,14 +77,14 @@ app.delete("/blogs/:id", (req, res) => {
   }
 
   blogs.splice(blogIndex, 1);
-  saveBlogsToFile(); // Persist changes
+  saveBlogsToFile();
   res.json({ message: "Blog deleted successfully!" });
 });
 
 // 📌 Route to Update a Blog
 app.put("/blogs/:id", (req, res) => {
   const blogId = parseInt(req.params.id);
-  const { title, category, author, image, description } = req.body;
+  const { title, category, author, image, description, backgroundColor } = req.body;
   const blog = blogs.find((b) => b.id === blogId);
 
   if (!blog) {
@@ -95,17 +96,18 @@ app.put("/blogs/:id", (req, res) => {
   blog.author = author || blog.author;
   blog.image = image || blog.image;
   blog.description = description || blog.description;
+  blog.backgroundColor = backgroundColor || blog.backgroundColor;
 
-  saveBlogsToFile(); // Persist changes
+  saveBlogsToFile();
   res.json({ message: "Blog updated successfully!", blog });
 });
 
-// Start Server
-app.listen(PORT, () => {
-  console.log(`✅ Server running at http://localhost:${PORT}`);
-});
-
+// Root endpoint
 app.get("/", (req, res) => {
   res.send("Bible Study Backend is running ✅");
 });
 
+// Start server
+app.listen(PORT, () => {
+  console.log(`✅ Server running at http://localhost:${PORT}`);
+});
