@@ -179,7 +179,7 @@ const AboutUs = () => {
     <section className="founder-section">
     <div className="founder-content">
         {/* Left Side: Image */}
-        <img src="/assets/ManOfGod.png" alt="Founder" className="founder-image" />
+        <img src="/assets/PROFILEPIC.jpg" alt="Founder" className="founder-image" />
 
         {/* Right Side: Text */}
         <div className="founder-text">
