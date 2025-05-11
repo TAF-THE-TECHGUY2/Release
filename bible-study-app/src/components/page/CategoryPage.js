@@ -12,7 +12,7 @@ import {
   CardMedia, 
   Typography 
 } from "@mui/material";
-import { fetchBlogs } from "../api/blogService";
+import { fetchBlogs } from "../../api/blogService"; // Adjust the import path as necessary
 
 const BlogPage = () => {
   const navigate = useNavigate();
