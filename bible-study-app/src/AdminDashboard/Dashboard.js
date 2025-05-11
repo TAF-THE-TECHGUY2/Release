@@ -7,7 +7,7 @@ const Dashboard = () => {
   const [totalBlogs, setTotalBlogs] = useState(0);
 
   useEffect(() => {
-    axios.get("http://13.49.23.100:5000/blogs").then((res) => {
+    axios.get("http://13.245.13.243:5000/blogs").then((res) => {
       const blogs = res.data;
       setTotalBlogs(blogs.length);
       // You can extend this if you add a "status" field (e.g. "published", "draft")

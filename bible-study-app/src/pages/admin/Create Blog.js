@@ -13,7 +13,7 @@ const CreateBlog = () => {
   const [categories, setCategories] = useState(["All", "Faith", "Mental Health"]);
 
   const navigate = useNavigate();
-  const API_URL = "http://13.49.23.100:5000";
+  const API_URL = "http://13.245.13.243/.100:5000";
 
   useEffect(() => {
     const storedCategories = localStorage.getItem("categories");
