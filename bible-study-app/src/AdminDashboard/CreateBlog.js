@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {
+  createBlog
+} from "../api/blogService"; // Make sure the path is correct
 import "../styles/createBlog.css";
 
 const CreateBlog = () => {
@@ -11,14 +13,12 @@ const CreateBlog = () => {
   const [image, setImage] = useState(null);
   const [backgroundColor, setBackgroundColor] = useState("#3f593e");
   const [categories, setCategories] = useState(["All", "Faith", "Mental Health"]);
-
   const navigate = useNavigate();
-  const API_URL = "http://13.49.23.100:5000";
 
   useEffect(() => {
-    const storedCategories = localStorage.getItem("categories");
-    if (storedCategories) {
-      setCategories(JSON.parse(storedCategories));
+    const stored = localStorage.getItem("categories");
+    if (stored) {
+      setCategories(JSON.parse(stored));
     }
   }, []);
 
@@ -29,9 +29,9 @@ const CreateBlog = () => {
 
   const addCategory = () => {
     if (category && !categories.includes(category)) {
-      const updatedCategories = [...categories, category];
-      setCategories(updatedCategories);
-      localStorage.setItem("categories", JSON.stringify(updatedCategories));
+      const updated = [...categories, category];
+      setCategories(updated);
+      localStorage.setItem("categories", JSON.stringify(updated));
       setCategory("");
     }
   };
@@ -63,7 +63,7 @@ const CreateBlog = () => {
     };
 
     try {
-      await axios.post(`${API_URL}/blogs`, newBlog);
+      await createBlog(newBlog);
       navigate("/category");
     } catch (err) {
       console.error("Failed to save blog:", err);
