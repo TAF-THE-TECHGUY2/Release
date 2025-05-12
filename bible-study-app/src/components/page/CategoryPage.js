@@ -1,102 +1,109 @@
 // src/components/BlogPage.jsx
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { 
-  Container, 
-  Tabs, 
-  Tab, 
-  Grid, 
-  Card, 
-  CardContent, 
-  CardMedia, 
-  Typography 
+import { useQuery } from "@tanstack/react-query";
+import { fetchBlogs } from "../../api/blogService";
+import {
+  Container,
+  Tabs,
+  Tab,
+  Grid,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Box,
+  CircularProgress,
+  Button,
 } from "@mui/material";
-import { fetchBlogs } from "../../api/blogService"; // Adjust the import path as necessary
 
 const BlogPage = () => {
   const navigate = useNavigate();
-  const [blogPosts, setBlogPosts] = useState([]);
-  const [categories, setCategories] = useState(["All"]);
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
 
-  useEffect(() => {
-    fetchBlogs()
-      .then((res) => {
-        const posts = res.data;
-        setBlogPosts(posts);
-        // Build category list: All + unique categories
-        const uniqueCats = ["All", ...new Set(posts.map((b) => b.category))];
-        setCategories(uniqueCats);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch blogs:", err);
-        setError("Unable to load posts. Please try again later.");
-      })
-      .finally(() => setLoading(false));
-  }, []);
+  const {
+    data: posts = [],
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["blogs"],
+    queryFn: () => fetchBlogs().then((res) => res.data),
+  });
 
-  if (loading) {
-    return <Typography align="center">Loading posts…</Typography>;
+  // Full-viewport loading state
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
-  if (error) {
-    return <Typography color="error" align="center">{error}</Typography>;
+
+  // Error state with retry
+  if (isError) {
+    return (
+      <Box
+        sx={{
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          p: 2,
+        }}
+      >
+        <Typography color="error" gutterBottom>
+          {error.message || "Failed to load posts."}
+        </Typography>
+        <Button variant="contained" onClick={() => refetch()}>
+          Retry
+        </Button>
+      </Box>
+    );
   }
 
+  // Categories and filtering
+  const categories = ["All", ...new Set(posts.map((p) => p.category))];
   const filtered =
     selectedCategory === "All"
-      ? blogPosts
-      : blogPosts.filter((b) => b.category === selectedCategory);
+      ? posts
+      : posts.filter((p) => p.category === selectedCategory);
 
   return (
-    <Container
-      sx={{
-        py: 5,
-        backgroundColor: "#f6f1ea",
-        minHeight: "100vh",
-      }}
-    >
+    <Container sx={{ py: 5, backgroundColor: "#f6f1ea", minHeight: "100vh" }}>
       {/* Page Title */}
       <Typography
         variant="h4"
         align="center"
         fontWeight="bold"
-        sx={{ fontFamily: "'Merriweather', serif", mb: 2 }}
+        sx={{ mb: 2 }}
       >
         Devotionals on Community
       </Typography>
 
-      {/* Tabs for Categories */}
+      {/* Category Tabs */}
       <Tabs
         value={selectedCategory}
-        onChange={(_, val) => setSelectedCategory(val)}
+        onChange={(_, v) => setSelectedCategory(v)}
         centered
         textColor="inherit"
         indicatorColor="primary"
-        sx={{
-          mb: 4,
-          borderBottom: "2px solid #ddd",
-          ".MuiTab-root": {
-            textTransform: "none",
-            fontWeight: 500,
-            fontSize: "1rem",
-            color: "#444",
-            minWidth: 100,
-          },
-          ".Mui-selected": {
-            color: "#000",
-            fontWeight: "bold",
-            borderBottom: "3px solid #c62828",
-          },
-          ".MuiTabs-indicator": {
-            backgroundColor: "transparent",
-          },
-        }}
+        sx={{ mb: 4, borderBottom: "2px solid #ddd" }}
       >
         {categories.map((cat) => (
-          <Tab key={cat} label={cat} value={cat} disableRipple />
+          <Tab key={cat} label={cat} value={cat} />
         ))}
       </Tabs>
 
@@ -105,19 +112,16 @@ const BlogPage = () => {
         {filtered.map((post) => (
           <Grid item xs={12} sm={6} md={4} key={post.id}>
             <Card
+              onClick={() => navigate(`/post/${post.id}`)}
               sx={{
                 height: "100%",
                 display: "flex",
                 flexDirection: "column",
+                cursor: "pointer",
                 transition: "0.3s",
                 backgroundColor: "#fff",
-                ":hover": {
-                  transform: "scale(1.02)",
-                  boxShadow: 6,
-                  cursor: "pointer",
-                },
+                ":hover": { transform: "scale(1.02)", boxShadow: 6 },
               }}
-              onClick={() => navigate(`/post/${post.id}`)}
             >
               {post.image && (
                 <CardMedia

@@ -1,70 +1,137 @@
-import React, { useEffect, useState } from "react";
+// src/components/BlogPost.jsx
+
+import React from "react";
 import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { fetchBlogById } from "../../api/blogService";
 import {
   Box,
   Container,
   Typography,
   Avatar,
+  CircularProgress,
+  Button,
 } from "@mui/material";
 
 const BlogPost = () => {
   const { id } = useParams();
-  const [post, setPost] = useState(null);
 
-  useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("blogs"));
-    const selected = stored?.find((b) => b.id.toString() === id.toString());
-    setPost(selected);
-  }, [id]);
+  const {
+    data: post,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["blog", id],
+    queryFn: () => fetchBlogById(id).then((res) => res.data),
+    staleTime: 300_000,
+  });
 
-  if (!post) return <Typography>Loading...</Typography>;
+  // Full‐screen loading
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
 
-  const paragraphs = post.description
+  // Full‐screen error
+  if (isError) {
+    return (
+      <Box
+        sx={{
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          p: 2,
+        }}
+      >
+        <Typography color="error" variant="h6" gutterBottom>
+          {error.message}
+        </Typography>
+        <Button variant="contained" onClick={refetch}>
+          Retry
+        </Button>
+      </Box>
+    );
+  }
+
+  // Destructure safely
+  const {
+    title = "",
+    category = "",
+    description = "",
+    image,
+    backgroundColor,
+    author = "",
+    author_avatar,
+    date_created,
+    createdAt,
+    scripture,
+  } = post || {};
+
+  // Paragraph splitting
+  const paragraphs = description
     .split(" ")
-    .reduce((acc, word, i) => {
+    .reduce((acc, w, i) => {
       const idx = Math.floor(i / 40);
       if (!acc[idx]) acc[idx] = [];
-      acc[idx].push(word);
+      acc[idx].push(w);
       return acc;
     }, [])
     .map((chunk, idx) => (
-      <Typography
-        key={idx}
-        paragraph
-        sx={{ fontSize: "18px", lineHeight: 1.8 }}
-      >
+      <Typography key={idx} paragraph sx={{ fontSize: "18px", lineHeight: 1.8 }}>
         {chunk.join(" ")}
       </Typography>
     ));
 
   return (
-    <Box sx={{ background: post.backgroundColor || "#3f593e", color: "white", py: 4 }}>
+    <Box sx={{ background: backgroundColor || "#3f593e", color: "white", py: 4 }}>
       <Container>
         <Typography align="center" variant="overline" sx={{ letterSpacing: 1 }}>
-          Topic: {post.category}
+          Topic: {category}
         </Typography>
-        <Typography
-          align="center"
-          variant="h4"
-          fontWeight="bold"
-          sx={{ my: 1 }}
-        >
-          {post.title}
+        <Typography align="center" variant="h4" fontWeight="bold" sx={{ my: 1 }}>
+          {title}
         </Typography>
         <Typography align="center" variant="body1" sx={{ mb: 3 }}>
-          {post.description.split(" ").slice(0, 20).join(" ")}...
+          {description.split(" ").slice(0, 20).join(" ")}…
         </Typography>
-        <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
-          <img
-            src={post.image}
-            alt={post.title}
-            style={{
-              maxHeight: "300px",
-              borderRadius: "10px",
-              boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
+
+        {/* CENTERED IMAGE */}
+        {image && (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              mb: 4,
             }}
-          />
-        </Box>
+          >
+            <Box
+              component="img"
+              src={image}
+              alt={title}
+              sx={{
+                maxHeight: "300px",
+                borderRadius: "10px",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
+              }}
+            />
+          </Box>
+        )}
       </Container>
 
       <Container
@@ -77,20 +144,18 @@ const BlogPost = () => {
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
-          <Avatar src={post.author_avatar || "/assets/avatar.jpg"} />
-          <Typography fontWeight="medium">
-            {post.author || "Anonymous"}
-          </Typography>
+          <Avatar src={author_avatar || "/assets/avatar.jpg"} />
+          <Typography fontWeight="medium">{author}</Typography>
           <Typography variant="caption" color="text.secondary">
-            {new Date(post.date_created).toLocaleDateString()}
+            {new Date(date_created || createdAt).toLocaleDateString()}
           </Typography>
         </Box>
 
-        {paragraphs}
+        {paragraphs.length ? paragraphs : <Typography>No content available.</Typography>}
 
-        {post.scripture && (
+        {scripture && (
           <Typography fontWeight="bold" mt={3}>
-            Scripture Reading: {post.scripture}
+            Scripture Reading: {scripture}
           </Typography>
         )}
       </Container>

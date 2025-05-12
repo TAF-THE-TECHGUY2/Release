@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaInstagram, FaYoutube, FaTiktok } from "react-icons/fa";
 import "../index.css";
+import logo from '../images/Logo.png';  
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,13 +18,13 @@ const Navbar = () => {
     <>
       <nav className="navbar">
         {/* Logo */}
-        <img
-          src="/assets/logo.png"
-          alt="Reference Bible Study"
-          className="nav-logo"
-          onClick={() => (window.location.href = "/")}
-          style={{ cursor: "pointer" }}
-        />
+       <img
+  src={logo}
+  alt="Reference Bible Study"
+  className="nav-logo"
+  onClick={() => (window.location.href = '/')}
+  style={{ cursor: 'pointer' }}
+/>
 
         {/* Hamburger Icon */}
         <div className="hamburger" onClick={handleToggle}>

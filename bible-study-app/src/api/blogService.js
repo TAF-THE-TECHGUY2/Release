@@ -1,11 +1,19 @@
-// api/blogService.js
+// src/api/blogService.js
 import axios from "axios";
 
-// Remove the extra slash before :5000
+// Point this at your running backend
 const API_BASE_URL = "http://13.245.13.243:5000";
 
-export const fetchBlogs      = () => axios.get(`${API_BASE_URL}/blogs`);
-export const fetchBlogById   = (id) => axios.get(`${API_BASE_URL}/blogs/${id}`);
-export const createBlog      = (data) => axios.post(`${API_BASE_URL}/blogs`, data);
-export const deleteBlog      = (id) => axios.delete(`${API_BASE_URL}/blogs/${id}`);
-export const updateBlog      = (id, data) => axios.put(`${API_BASE_URL}/blogs/${id}`, data);
+const api = axios.create({
+  baseURL: API_BASE_URL,
+  headers: { "Content-Type": "application/json" },
+});
+
+// List all
+export const fetchBlogs    = () => api.get("/blogs");
+// Single by ID
+export const fetchBlogById = (id) => api.get(`/blogs/${id}`);
+// Other ops...
+export const createBlog    = (data) => api.post("/blogs", data);
+export const updateBlog    = (id, data) => api.put(`/blogs/${id}`, data);
+export const deleteBlog    = (id) => api.delete(`/blogs/${id}`);

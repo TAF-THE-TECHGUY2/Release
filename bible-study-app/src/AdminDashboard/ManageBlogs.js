@@ -1,34 +1,51 @@
-import React, { useEffect, useState } from "react";
-import {
-  fetchBlogs,
-  deleteBlog
-} from "../api/blogService"; // Make sure the path is correct
+// src/components/ManageBlogs.jsx
+
+import React from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { fetchBlogs, deleteBlog } from "../api/blogService";
 import "../styles/ManageBlog.css";
 
 const ManageBlogs = () => {
-  const [blogs, setBlogs] = useState([]);
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    loadBlogs();
-  }, []);
+  // ✅ useQuery in object form
+  const {
+    data: blogs = [],
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["blogs"],
+    queryFn: () => fetchBlogs().then((res) => res.data),
+  });
 
-  const loadBlogs = async () => {
-    try {
-      const response = await fetchBlogs();
-      setBlogs(response.data);
-    } catch (err) {
-      console.error("Failed to fetch blogs:", err);
-    }
-  };
+  // ✅ useMutation in object form
+  const deleteMutation = useMutation({
+    mutationFn: (id) => deleteBlog(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["blogs"] });
+    },
+  });
 
-  const handleDelete = async (id) => {
-    try {
-      await deleteBlog(id);
-      setBlogs(blogs.filter((blog) => blog.id !== id));
-    } catch (err) {
-      console.error("Failed to delete blog:", err);
-    }
-  };
+  if (isLoading) {
+    return (
+      <div className="manage-blogs loading">
+        <div className="spinner" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="manage-blogs error">
+        <p>{error.message || "Could not load blogs."}</p>
+        <button onClick={() => refetch()} className="retry-btn">
+          Retry
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="manage-blogs">
@@ -51,20 +68,41 @@ const ManageBlogs = () => {
               <tr key={blog.id}>
                 <td>
                   {blog.image ? (
-                    <img src={blog.image} className="blog-thumbnail" alt={blog.title} />
-                  ) : "No Image"}
+                    <img
+                      src={blog.image}
+                      className="blog-thumbnail"
+                      alt={blog.title}
+                    />
+                  ) : (
+                    "No Image"
+                  )}
                 </td>
                 <td>{blog.title}</td>
                 <td>{blog.category}</td>
                 <td>{blog.author}</td>
                 <td>{new Date(blog.createdAt).toLocaleDateString()}</td>
-                <td>{blog.description?.split(" ").slice(0, 10).join(" ")}...</td>
+                <td>
+                  {blog.description
+                    .split(" ")
+                    .slice(0, 10)
+                    .join(" ")}…
+                </td>
                 <td className="actions">
                   <button className="edit-btn">✏️</button>
-                  <button className="delete-btn" onClick={() => handleDelete(blog.id)}>🗑</button>
+                  <button
+                    className="delete-btn"
+                    onClick={() => deleteMutation.mutate(blog.id)}
+                  >
+                    🗑
+                  </button>
                 </td>
               </tr>
             ))}
+            {blogs.length === 0 && (
+              <tr>
+                <td colSpan="7">No blogs found.</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
