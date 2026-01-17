@@ -2,7 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { createBlog } from "../api/blogService";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { createBlog, uploadImage } from "../api/blogService";
+import AdminHeader from "./AdminHeader";
 import "../styles/createBlog.css";
 
 const CreateBlog = () => {
@@ -12,9 +15,11 @@ const CreateBlog = () => {
   const [newCategory, setNewCategory] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("#3f593e");
   const [categories, setCategories] = useState(["Faith", "Mental Health"]);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   // Load any saved categories
@@ -26,7 +31,13 @@ const CreateBlog = () => {
   }, []);
 
   const handleImageUpload = (e) => {
-    setImage(e.target.files[0]);
+    const file = e.target.files[0];
+    setImage(file || null);
+    if (file) {
+      setImagePreview(URL.createObjectURL(file));
+    } else {
+      setImagePreview("");
+    }
   };
 
   const addCategory = () => {
@@ -41,27 +52,30 @@ const CreateBlog = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
+    setIsSubmitting(true);
 
-    let imageBase64 = "";
-    if (image) {
-      const reader = new FileReader();
-      reader.readAsDataURL(image);
-      reader.onload = async () => {
-        imageBase64 = reader.result;
-        await saveBlog(imageBase64);
-      };
-    } else {
-      await saveBlog("");
+    try {
+      let imageUrl = "";
+      if (image) {
+        const response = await uploadImage(image);
+        imageUrl = response.data.url;
+      }
+      await saveBlog(imageUrl);
+    } catch (err) {
+      const msg = err.response?.data?.error || "Error saving blog";
+      setErrorMessage(msg);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  const saveBlog = async (imageBase64) => {
+  const saveBlog = async (imageUrl) => {
     const newBlog = {
       title: title.trim(),
       author: author.trim(),
       category: category || "Uncategorized",
       description: description.trim(),
-      image: imageBase64,
+      image: imageUrl,
       backgroundColor,
     };
 
@@ -77,76 +91,112 @@ const CreateBlog = () => {
   };
 
   return (
-    <div className="create-blog">
-      <h1>Create New Blog</h1>
+    <div className="admin-page">
+      <AdminHeader
+        title="Create New Blog"
+        subtitle="Draft a new devotional and publish it to your community."
+      />
 
-      {errorMessage && <div className="error">{errorMessage}</div>}
+      <div className="form-shell card-surface">
+        {errorMessage && (
+          <div className="form-error" role="alert">
+            {errorMessage}
+          </div>
+        )}
 
-      <form onSubmit={handleSubmit}>
-        <label>Title:</label>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
+        <form onSubmit={handleSubmit} className="admin-form">
+          <div className="form-grid">
+            <div className="field">
+              <label htmlFor="blog-title">Title</label>
+              <input
+                id="blog-title"
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+              />
+            </div>
 
-        <label>Author:</label>
-        <input
-          type="text"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-          required
-        />
+            <div className="field">
+              <label htmlFor="blog-author">Author</label>
+              <input
+                id="blog-author"
+                type="text"
+                value={author}
+                onChange={(e) => setAuthor(e.target.value)}
+                required
+              />
+            </div>
 
-        <label>Category:</label>
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        >
-          <option value="">Uncategorized</option>
-          {categories.map((cat, i) => (
-            <option key={i} value={cat}>
-              {cat}
-            </option>
-          ))}
-        </select>
+            <div className="field">
+              <label htmlFor="blog-category">Category</label>
+              <select
+                id="blog-category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                <option value="">Uncategorized</option>
+                {categories.map((cat, i) => (
+                  <option key={i} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-        <div className="add-category">
-          <input
-            type="text"
-            value={newCategory}
-            onChange={(e) => setNewCategory(e.target.value)}
-            placeholder="New category"
-          />
-          <button type="button" onClick={addCategory}>
-            + Add
-          </button>
-        </div>
+            <div className="field inline-field">
+              <label htmlFor="blog-new-category">Add category</label>
+              <div className="add-category">
+                <input
+                  id="blog-new-category"
+                  type="text"
+                  value={newCategory}
+                  onChange={(e) => setNewCategory(e.target.value)}
+                  placeholder="New category"
+                />
+                <button type="button" className="btn ghost" onClick={addCategory}>
+                  Add
+                </button>
+              </div>
+            </div>
 
-        <label>Upload Image:</label>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleImageUpload}
-        />
+            <div className="field">
+              <label htmlFor="blog-image">Upload Image</label>
+              <input
+                id="blog-image"
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+              />
+              <p className="helper">Recommended: 1200x800px</p>
+              {imagePreview && (
+                <img src={imagePreview} alt="Preview" className="image-preview" />
+              )}
+            </div>
 
-        <label>Background Color:</label>
-        <input
-          type="color"
-          value={backgroundColor}
-          onChange={(e) => setBackgroundColor(e.target.value)}
-        />
+            <div className="field">
+              <label htmlFor="blog-color">Background Color</label>
+              <input
+                id="blog-color"
+                type="color"
+                value={backgroundColor}
+                onChange={(e) => setBackgroundColor(e.target.value)}
+              />
+            </div>
+          </div>
 
-        <label>Content:</label>
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
+          <div className="field">
+            <label>Content</label>
+            <ReactQuill theme="snow" value={description} onChange={setDescription} />
+          </div>
 
-        <button type="submit">Publish Blog</button>
-      </form>
+          <div className="form-actions">
+            <button type="submit" className="btn primary" disabled={isSubmitting}>
+              {isSubmitting ? "Publishing..." : "Publish Blog"}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

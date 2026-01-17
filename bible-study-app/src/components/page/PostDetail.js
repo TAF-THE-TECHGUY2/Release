@@ -1,9 +1,8 @@
-// src/components/BlogPost.jsx
-
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchBlogById } from "../../api/blogService";
+import { excerpt } from "../../utils/text";
 import {
   Box,
   Container,
@@ -16,19 +15,12 @@ import {
 const BlogPost = () => {
   const { id } = useParams();
 
-  const {
-    data: post,
-    isLoading,
-    isError,
-    error,
-    refetch,
-  } = useQuery({
+  const { data: post, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["blog", id],
     queryFn: () => fetchBlogById(id).then((res) => res.data),
     staleTime: 300_000,
   });
 
-  // Full‐screen loading
   if (isLoading) {
     return (
       <Box
@@ -45,7 +37,6 @@ const BlogPost = () => {
     );
   }
 
-  // Full‐screen error
   if (isError) {
     return (
       <Box
@@ -69,7 +60,6 @@ const BlogPost = () => {
     );
   }
 
-  // Destructure safely
   const {
     title = "",
     category = "",
@@ -78,25 +68,13 @@ const BlogPost = () => {
     backgroundColor,
     author = "",
     author_avatar,
-    date_created,
     createdAt,
     scripture,
   } = post || {};
 
-  // Paragraph splitting
-  const paragraphs = description
-    .split(" ")
-    .reduce((acc, w, i) => {
-      const idx = Math.floor(i / 40);
-      if (!acc[idx]) acc[idx] = [];
-      acc[idx].push(w);
-      return acc;
-    }, [])
-    .map((chunk, idx) => (
-      <Typography key={idx} paragraph sx={{ fontSize: "18px", lineHeight: 1.8 }}>
-        {chunk.join(" ")}
-      </Typography>
-    ));
+  const contentHtml = description.includes("<")
+    ? description
+    : description.replace(/\n/g, "<br />");
 
   return (
     <Box sx={{ background: backgroundColor || "#3f593e", color: "white", py: 4 }}>
@@ -108,10 +86,9 @@ const BlogPost = () => {
           {title}
         </Typography>
         <Typography align="center" variant="body1" sx={{ mb: 3 }}>
-          {description.split(" ").slice(0, 20).join(" ")}…
+          {excerpt(description, 20)}...
         </Typography>
 
-        {/* CENTERED IMAGE */}
         {image && (
           <Box
             sx={{
@@ -147,11 +124,14 @@ const BlogPost = () => {
           <Avatar src={author_avatar || "/assets/avatar.jpg"} />
           <Typography fontWeight="medium">{author}</Typography>
           <Typography variant="caption" color="text.secondary">
-            {new Date(date_created || createdAt).toLocaleDateString()}
+            {createdAt ? new Date(createdAt).toLocaleDateString() : ""}
           </Typography>
         </Box>
 
-        {paragraphs.length ? paragraphs : <Typography>No content available.</Typography>}
+        <Box
+          sx={{ fontSize: "18px", lineHeight: 1.8 }}
+          dangerouslySetInnerHTML={{ __html: contentHtml }}
+        />
 
         {scripture && (
           <Typography fontWeight="bold" mt={3}>

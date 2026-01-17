@@ -45,6 +45,21 @@
     border-bottom: 2px solid black;
 }
 
+.blog-search {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.blog-search input {
+    width: 260px;
+    padding: 8px 10px;
+    border-radius: 20px;
+    border: 1px solid #d0c8bc;
+    font-size: 12px;
+    background: #fff;
+}
+
 /* Blog Grid (Smaller Cards) */
 .blog-grid {
     display: grid;
@@ -102,6 +117,28 @@
     font-size: 11px;
     color: #555;
     line-height: 1.3;
+}
+
+.blog-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+    font-size: 12px;
+}
+
+.blog-pagination button {
+    background: #fff;
+    border: 1px solid #d0c8bc;
+    padding: 6px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.blog-pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 /* Featured Blog Post */

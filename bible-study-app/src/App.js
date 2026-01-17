@@ -18,10 +18,12 @@ import Sidebar from "./AdminDashboard/Sidebar";
 import Dashboard from "./AdminDashboard/Dashboard";
 import ManageBlogs from "./AdminDashboard/ManageBlogs";
 import CreateBlog from "./AdminDashboard/CreateBlog";
+import EditBlog from "./AdminDashboard/EditBlog";
 import Login from "./pages/admin/Login";
 import PrivateRoute from "./pages/admin/PrivateRoute";
 
 import useIsMobile from "./useIsMobile"; // ✅ correct
+import "./styles/admin.css";
 import "./styles/dashboard.css";
 
 function App() {
@@ -74,6 +76,7 @@ function App() {
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/manage" element={<ManageBlogs />} />
                     <Route path="/create" element={<CreateBlog />} />
+                    <Route path="/edit/:id" element={<EditBlog />} />
                   </Routes>
                 </div>
               </div>

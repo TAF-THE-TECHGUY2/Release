@@ -1,77 +1,82 @@
+const dotenv = require("dotenv");
+dotenv.config();
+
 const express = require("express");
 const cors = require("cors");
+const bcrypt = require("bcryptjs");
 const fs = require("fs");
 const path = require("path");
+const connectDB = require("./config/db");
+const Blog = require("./models/Blog");
+const User = require("./models/User");
+const blogRoutes = require("./routes/blogs");
+const authRoutes = require("./routes/auth");
+const uploadRoutes = require("./routes/uploads");
+
+const envPath = path.join(__dirname, ".env");
+if (!fs.existsSync(envPath)) {
+  console.warn("Warning: .env not found in backend. Copy .env.example to .env.");
+}
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
+const MONGODB_URI = process.env.MONGODB_URI;
+const JWT_SECRET = process.env.JWT_SECRET;
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN || "*",
+  })
+);
 
-const BLOGS_FILE = path.join(__dirname, "blogs.json");
+app.get("/", (_req, res) => {
+  res.send("Bible Study Backend is running.");
+});
 
-let blogs = [];
-if (fs.existsSync(BLOGS_FILE)) {
-  blogs = JSON.parse(fs.readFileSync(BLOGS_FILE, "utf8"));
-}
+app.use("/auth", authRoutes);
+app.use("/blogs", blogRoutes);
+app.use("/uploads", uploadRoutes);
 
-const saveBlogsToFile = () => {
-  fs.writeFileSync(BLOGS_FILE, JSON.stringify(blogs, null, 2));
+const ensureAdminUser = async () => {
+  if (!ADMIN_EMAIL || !ADMIN_PASSWORD) return;
+
+  const existing = await User.findOne({ email: ADMIN_EMAIL.toLowerCase() });
+  if (existing) return;
+
+  const passwordHash = await bcrypt.hash(ADMIN_PASSWORD, 10);
+  await User.create({
+    email: ADMIN_EMAIL.toLowerCase(),
+    passwordHash,
+    role: "admin",
+  });
 };
 
-app.get("/", (req, res) => {
-  res.send("Bible Study Backend is running ✅");
-});
-
-app.get("/blogs", (req, res) => res.json(blogs));
-
-app.get("/blogs/:id", (req, res) => {
-  const blog = blogs.find((b) => b.id === parseInt(req.params.id));
-  blog ? res.json(blog) : res.status(404).json({ error: "Not found" });
-});
-
-app.post("/blogs", (req, res) => {
-  const { title, category, author, image, description, backgroundColor } = req.body;
-  if (!title || !category || !author || !image || !description || !backgroundColor) {
-    return res.status(400).json({ error: "All fields are required" });
+const start = async () => {
+  if (!MONGODB_URI) {
+    throw new Error("MONGODB_URI is required");
   }
-  const newBlog = {
-    id: Date.now(),
-    title,
-    category,
-    author,
-    image,
-    description,
-    backgroundColor,
-    createdAt: new Date().toISOString(),
-  };
-  blogs.push(newBlog);
-  saveBlogsToFile();
-  res.status(201).json(newBlog);
-});
+  if (!JWT_SECRET) {
+    throw new Error("JWT_SECRET is required");
+  }
 
-app.put("/blogs/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const blog = blogs.find((b) => b.id === id);
-  if (!blog) return res.status(404).json({ error: "Not found" });
+  await connectDB(MONGODB_URI);
+  await ensureAdminUser();
 
-  Object.assign(blog, req.body);
-  saveBlogsToFile();
-  res.json(blog);
-});
+  const count = await Blog.countDocuments();
+  if (count === 0) {
+    console.log("No blogs found in MongoDB.");
+  }
 
-app.delete("/blogs/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const index = blogs.findIndex((b) => b.id === id);
-  if (index === -1) return res.status(404).json({ error: "Not found" });
+  app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+  });
+};
 
-  blogs.splice(index, 1);
-  saveBlogsToFile();
-  res.json({ message: "Deleted" });
-});
-
-app.listen(PORT, () => {
-  console.log(`✅ Server running at http://localhost:${PORT}`);
+start().catch((err) => {
+  console.error("Failed to start server:", err.message);
+  process.exit(1);
 });

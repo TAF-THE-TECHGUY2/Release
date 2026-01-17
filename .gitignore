@@ -1,0 +1,6 @@
+# env files
+/backend/.env
+/backend/.env.*
+/bible-study-app/.env
+/bible-study-app/.env.*
+/bible-study-app/src/.env

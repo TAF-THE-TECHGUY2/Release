@@ -8,7 +8,31 @@ body {
   background-color: #fff8e1;
   color: #333;
 }
+.bmc-btn--parchment {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 9999px;
+  font: 700 14px/1 "Playfair Display", serif;
+  color: #333;
+  text-decoration: none;
+  background: #fff8e1;
+  border: 1px solid #7a5419;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+}
 
+.bmc-btn--parchment:hover {
+  transform: translateY(-1px);
+  background: #fff3d2;
+  border-color: #6b4a17;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.bmc-btn--parchment:active {
+  transform: translateY(0);
+}
 /* Navbar */
 .navbar {
   background: linear-gradient(90deg, #ff3131, #ff914d);

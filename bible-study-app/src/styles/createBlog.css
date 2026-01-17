@@ -1,77 +1,92 @@
-.create-blog {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 30px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.form-shell {
+    padding: 24px;
 }
 
-.create-blog h1 {
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-form {
+.admin-form {
     display: flex;
     flex-direction: column;
+    gap: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
 }
 
-label {
-    font-weight: 600;
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     text-align: left;
 }
 
-input,
-select,
-textarea {
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 16px;
+.field label {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--admin-text);
 }
 
-textarea {
+.field input,
+.field select,
+.field textarea {
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--admin-border);
+    font-size: 14px;
+}
+
+.field textarea {
     resize: vertical;
     height: 150px;
 }
 
-.add-category {
+.inline-field .add-category {
     display: flex;
-    gap: 10px;
+    gap: 8px;
 }
 
-.add-category input {
-    flex: 1;
+.helper {
+    font-size: 12px;
+    color: var(--admin-muted);
 }
 
-.add-category button {
-    background: #007bff;
-    color: white;
-    padding: 10px 12px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+.ql-container {
+    min-height: 220px;
+    border-radius: 0 0 12px 12px;
 }
 
-button[type="submit"] {
-    background: #28a745;
-    color: white;
-    padding: 12px;
-    border: none;
-    font-size: 16px;
-    border-radius: 6px;
-    cursor: pointer;
+.ql-toolbar {
+    border-radius: 12px 12px 0 0;
 }
 
-@media (max-width: 768px) {
-    .create-blog {
-        width: 90%;
-        padding: 20px;
+.image-preview {
+    width: 180px;
+    height: auto;
+    border-radius: 12px;
+    border: 1px solid var(--admin-border);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.form-error {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 12px 14px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+@media (max-width: 900px) {
+    .form-grid {
+        grid-template-columns: 1fr;
     }
 
-    .add-category {
+    .inline-field .add-category {
         flex-direction: column;
     }
 }

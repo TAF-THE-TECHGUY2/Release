@@ -1,56 +1,99 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { fetchBlogs } from "../../api/blogService";
+import { excerpt } from "../../utils/text";
 import "../../BlogPage.css";
 
 const BlogPage = () => {
   const navigate = useNavigate();
-  const [blogPosts, setBlogPosts] = useState([]);
-  const [categories, setCategories] = useState(["All"]);
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const limit = 6;
 
-  useEffect(() => {
-    const stored = localStorage.getItem("blogs");
-    if (stored) {
-      const blogs = JSON.parse(stored);
-      setBlogPosts(blogs);
-      const unique = ["All", ...new Set(blogs.map((b) => b.category))];
-      setCategories(unique);
-    }
-  }, []);
+  const { data } = useQuery({
+    queryKey: ["blogs-landing", selectedCategory, search, page],
+    queryFn: () =>
+      fetchBlogs({
+        page,
+        limit,
+        search,
+        category: selectedCategory,
+      }).then((res) => res.data),
+  });
 
-  const filteredBlogs = selectedCategory === "All"
-    ? blogPosts
-    : blogPosts.filter((b) => b.category === selectedCategory);
+  const blogPosts = data?.items || [];
+  const totalPages = data?.pages || 1;
+  const categories = ["All", ...new Set(blogPosts.map((b) => b.category))];
 
   return (
     <div className="blog-page">
       <h2 className="category-title">Devotionals on Community</h2>
 
-      {/* Blog Navigation Tabs */}
       <nav className="blog-nav">
         {categories.map((category, index) => (
           <button
             key={index}
             className={selectedCategory === category ? "active" : ""}
-            onClick={() => setSelectedCategory(category)}
+            onClick={() => {
+              setSelectedCategory(category);
+              setPage(1);
+            }}
           >
             {category}
           </button>
         ))}
       </nav>
 
-  
-      {/* Blog Grid */}
+      <div className="blog-search">
+        <input
+          type="text"
+          placeholder="Search devotionals..."
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setPage(1);
+          }}
+        />
+      </div>
+
       <section className="blog-grid">
-        {filteredBlogs.slice(1).map((post) => (
-          <div key={post.id} className="blog-card" onClick={() => navigate(`/post/${post.id}`)}>
-            <img src={post.image} alt={post.title} />
+        {blogPosts.map((post) => (
+          <div
+            key={post.id}
+            className="blog-card"
+            onClick={() => navigate(`/post/${post.id}`)}
+          >
+            {post.image && <img src={post.image} alt={post.title} />}
             <h3>{post.title}</h3>
-            <p className="date">{new Date(post.date_created).toLocaleDateString()}</p>
-            <p>{post.description.split(" ").slice(0, 20).join(" ")}...</p>
+            <p className="date">
+              {post.createdAt ? new Date(post.createdAt).toLocaleDateString() : ""}
+            </p>
+            <p>{excerpt(post.description, 20)}...</p>
           </div>
         ))}
       </section>
+
+      <div className="blog-pagination">
+        <button
+          type="button"
+          disabled={page <= 1}
+          onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+        >
+          Prev
+        </button>
+        <span>
+          Page {page} of {totalPages}
+        </span>
+        <button
+          type="button"
+          disabled={page >= totalPages}
+          onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };

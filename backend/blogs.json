@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1700000000001,
+    "title": "Morning Mercies",
+    "category": "Faith",
+    "author": "A. Moyo",
+    "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+    "description": "Start the day with gratitude and a steady heart. This devotional walks through a simple morning practice: breath prayer, a short psalm, and a single intention for the day. The focus is on noticing grace in the small things and carrying that awareness into your work, study, and relationships.",
+    "backgroundColor": "#3f593e",
+    "createdAt": "2025-01-05T08:30:00.000Z"
+  },
+  {
+    "id": 1700000000002,
+    "title": "Peace in the Middle",
+    "category": "Mental Health",
+    "author": "K. Ndlovu",
+    "image": "https://images.unsplash.com/photo-1482192505345-5655af888cc4",
+    "description": "When anxiety rises, it can feel like the ground is moving. This entry offers a short reflection on Psalm 46 and a grounding exercise you can practice in under two minutes. It ends with a reminder that peace is not the absence of trouble but the presence of God in it.",
+    "backgroundColor": "#4e6b55",
+    "createdAt": "2025-01-12T10:15:00.000Z"
+  },
+  {
+    "id": 1700000000003,
+    "title": "The Quiet Way",
+    "category": "Prayer",
+    "author": "L. Jacobs",
+    "image": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e",
+    "description": "A devotional on choosing silence in a noisy world. We explore Jesus withdrawing to solitary places and how that rhythm can reshape our attention. Try the 10-minute quiet practice at the end and write a single sentence prayer.",
+    "backgroundColor": "#2f3e46",
+    "createdAt": "2025-01-20T07:45:00.000Z"
+  },
+  {
+    "id": 1700000000004,
+    "title": "Bread for Today",
+    "category": "Provision",
+    "author": "M. Sibanda",
+    "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
+    "description": "This reflection focuses on daily dependence, not distant certainty. Consider what it means to pray for daily bread in a culture of hurry. The devotional includes a short list of practical steps for generous living.",
+    "backgroundColor": "#6a5d4d",
+    "createdAt": "2025-02-02T09:05:00.000Z"
+  },
+  {
+    "id": 1700000000005,
+    "title": "Hold the Line",
+    "category": "Perseverance",
+    "author": "T. Chirwa",
+    "image": "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429",
+    "description": "Endurance is not glamorous, but it is holy. This devotional looks at James 1 and offers a brief inventory for trials: what is being shaped, what is being revealed, and what small step you can take today.",
+    "backgroundColor": "#4b4e4a",
+    "createdAt": "2025-02-10T06:20:00.000Z"
+  },
+  {
+    "id": 1700000000006,
+    "title": "The Practice of Forgiveness",
+    "category": "Relationships",
+    "author": "S. Dube",
+    "image": "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d",
+    "description": "Forgiveness is a practice, not a moment. This entry invites you to name the wound, release the demand for payback, and pray for a softened heart. A short prayer for the offender is included.",
+    "backgroundColor": "#5a6f7a",
+    "createdAt": "2025-02-18T12:40:00.000Z"
+  },
+  {
+    "id": 1700000000007,
+    "title": "Be Still, Be Led",
+    "category": "Guidance",
+    "author": "R. Moyo",
+    "image": "https://images.unsplash.com/photo-1469474968028-56623f02e42e",
+    "description": "Decision fatigue is real. This devotional walks through a simple discernment path: pause, seek counsel, search scripture, and move in faith. It closes with a reminder that God often guides one step at a time.",
+    "backgroundColor": "#3f4e5a",
+    "createdAt": "2025-03-01T11:10:00.000Z"
+  },
+  {
+    "id": 1700000000008,
+    "title": "Light in the Ordinary",
+    "category": "Worship",
+    "author": "N. Phiri",
+    "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+    "description": "Worship is more than songs. This reflection highlights everyday worship through attention, gratitude, and service. It includes a short exercise: list three ordinary moments that can become offerings today.",
+    "backgroundColor": "#6b705c",
+    "createdAt": "2025-03-09T14:55:00.000Z"
+  },
+  {
+    "id": 1700000000009,
+    "title": "Strength for the Week",
+    "category": "Encouragement",
+    "author": "J. Mbeki",
+    "image": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e",
+    "description": "As the week begins, this devotional draws from Isaiah 40 to remind us that renewal is available. It includes a short reflection prompt: where do you need strength most right now?",
+    "backgroundColor": "#4a6670",
+    "createdAt": "2025-03-16T08:00:00.000Z"
+  },
+  {
+    "id": 1700000000010,
+    "title": "Table of Grace",
+    "category": "Community",
+    "author": "P. Nkosi",
+    "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
+    "description": "Community grows around shared tables. This devotional invites you to practice hospitality, even in small ways. Consider one person you can invite into your week, then pray for courage to follow through.",
+    "backgroundColor": "#7d6b5b",
+    "createdAt": "2025-03-24T18:25:00.000Z"
+  }
+]

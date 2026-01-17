@@ -1,5 +1,5 @@
 import React from "react";
-import "../index.css";// Ensure the CSS file is included
+import "../index.css"; // Ensure the CSS file is included
 
 const Hero = () => {
   return (
@@ -7,10 +7,18 @@ const Hero = () => {
       <img src="/assets/hero-image.png" alt="Worship" className="hero-image" />
       <div className="hero-text">
         <h2>Step #1: Know who you are in Christ</h2>
-       <p className="hero-description">
-  Release Bible study is a community for individuals who seek to cultivate their identity in Christ.
-</p>
-        <button>Get Connected</button>
+        <p className="hero-description">
+          Release Bible study is a community for individuals who seek to cultivate their identity in Christ.
+        </p>
+        <button
+          type="button"
+          onClick={() =>
+            window.open("https://forms.gle/oy4HxvxT1B1Vwnyy9", "_blank", "noopener,noreferrer")
+          }
+          aria-label="Get Connected (opens form in a new tab)"
+        >
+          Get Connected
+        </button>
       </div>
     </div>
   );
